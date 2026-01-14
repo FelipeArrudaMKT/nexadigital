@@ -4,30 +4,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexa Digital Marketing | Marketing que Gera Vendas</title>
+    <title>Nexa Digital | Ecommerce | Marketing que Gera Vendas</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); }
-        .hero-gradient { background: radial-gradient(circle at top right, #1e1b4b, #000); }
-        .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .hero-gradient { 
+            background: radial-gradient(circle at top right, #1e1b4b, #030712); 
+            background-color: #030712;
+        }
+        .service-card {
+            transition: all 0.3s ease;
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            height: 100%;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: rgba(3, 7, 18, 0.6);
+            backdrop-filter: blur(4px);
+        }
+        .modal.active { display: flex; }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
-  }
-}
-</script>
 </head>
 <body class="bg-slate-50 text-slate-900 overflow-x-hidden">
-    <div id="root"></div>
+
+    <!-- Header / Nav -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="https://i.ibb.co/VbX91Dr/c7c5a237-cb92-407c-9dde-1399afb9f370.png" alt="Nexa Logo" class="h-10 w-auto">
+                <span class="text-xl font-black tracking-tighter text-white" id="nav-text">NEXA DIGITAL | ECOMMERCE</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-gradient pt-40 pb-24 md:pt-60 md:pb-48 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px]"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <div class="max-w-4xl mx-auto">
+                <div class="inline-block px-4 py-1.5 bg-white/5 rounded-full text-indigo-300 text-xs font-bold mb-8 border border-white/10 uppercase tracking-widest">
+                    Tecnologia & Performance
+                </div>
+                <h1 class="text-5xl md:text-8xl font-black mb-8 tracking-tighter leading-[0.9]">
+                    MARKETING QUE <br><span class="text-indigo-400">GERA VENDAS</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-400 mb-12 font-medium max-w-2xl mx-auto leading-relaxed">
+                    Criação de sites profissionais, e-commerces de alta performance e automações com IA para escalar o seu faturamento.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#servicos" class="px-10 py-5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold transition-all shadow-xl flex items-center justify-center">
+                        Nossos Serviços
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="servicos" class="py-32 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-4">O que fazemos por você</h2>
+                <p class="text-slate-500 text-lg max-w-2xl mx-auto">Clique nos serviços abaixo para ver como ajudamos sua empresa a crescer no digital.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Site Card -->
+                <div class="service-card p-8 rounded-3xl cursor-pointer" onclick="openModal('sites')">
+                    <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+                    </div>
+                    <h3 class="text-xl font-black mb-3">Sites Profissionais</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">Páginas de alta conversão otimizadas para Google e dispositivos móveis.</p>
+                    <span class="text-indigo-600 font-bold text-xs uppercase tracking-wider">Ver detalhes →</span>
+                </div>
+
+                <!-- E-commerce Card -->
+                <div class="service-card p-8 rounded-3xl cursor-pointer" onclick="openModal('ecommerce')">
+                    <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                    </div>
+                    <h3 class="text-xl font-black mb-3">Venda de Produtos</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">Lojas virtuais completas para vender seus produtos físicos com escala.</p>
+                    <span class="text-indigo-600 font-bold text-xs uppercase tracking-wider">Ver detalhes →</span>
+                </div>
+
+                <!-- Systems Card -->
+                <div class="service-card p-8 rounded-3xl cursor-pointer" onclick="openModal('sistemas')">
+                    <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                    </div>
+                    <h3 class="text-xl font-black mb-3">Sistemas Web</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">Plataformas de gestão e painéis administrativos personalizados.</p>
+                    <span class="text-indigo-600 font-bold text-xs uppercase tracking-wider">Ver detalhes →</span>
+                </div>
+
+                <!-- Automation Card -->
+                <div class="service-card p-8 rounded-3xl cursor-pointer" onclick="openModal('automacao')">
+                    <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+                    </div>
+                    <h3 class="text-xl font-black mb-3">Automação com IA</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">Chatbots inteligentes que atendem seus clientes 24/7 sem parar.</p>
+                    <span class="text-indigo-600 font-bold text-xs uppercase tracking-wider">Ver detalhes →</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 bg-slate-950 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex flex-col items-center gap-6">
+                <img src="https://i.ibb.co/VbX91Dr/c7c5a237-cb92-407c-9dde-1399afb9f370.png" alt="Nexa Logo" class="h-12 w-auto">
+                <h2 class="text-3xl font-black">Pronto para o próximo nível?</h2>
+                <p class="text-slate-500 text-sm mt-8">© <span id="year"></span> Nexa Digital | Ecommerce. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Explainer -->
+    <div id="service-modal" class="modal">
+        <div class="bg-white rounded-[2rem] max-w-lg w-full p-8 md:p-12 relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-900">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div id="modal-content">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
