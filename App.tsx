@@ -7,14 +7,14 @@ import {
   Bot, 
   Calendar, 
   Lock, 
-  ArrowRight, 
   CheckCircle,
   Layout,
   BarChart3,
-  Users,
   Package,
   ShoppingBag,
-  X
+  X,
+  Smartphone,
+  MousePointer2
 } from 'lucide-react';
 
 // Types
@@ -53,12 +53,18 @@ const Modal = ({ isOpen, onClose, data }: { isOpen: boolean, onClose: () => void
 
   return (
     <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-6">
-      <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={onClose}></div>
+      <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300" onClick={onClose}></div>
       <div className="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden animate-in fade-in zoom-in duration-300">
-        <button onClick={onClose} className="absolute top-4 right-4 p-2 hover:bg-slate-100 rounded-full transition-colors">
+        <button onClick={onClose} className="absolute top-4 right-4 p-2 hover:bg-slate-100 rounded-full transition-colors z-10">
           <X size={24} className="text-slate-500" />
         </button>
         <div className="p-8 md:p-12">
+          <div className="flex items-center gap-3 mb-4">
+             <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600">
+                <CheckCircle size={20} />
+             </div>
+             <span className="text-indigo-600 font-bold uppercase tracking-widest text-xs">Informações Técnicas</span>
+          </div>
           <h3 className="text-3xl font-black text-slate-900 mb-6">{data.title}</h3>
           <p className="text-slate-600 text-lg mb-8 leading-relaxed">
             {data.description}
@@ -67,14 +73,14 @@ const Modal = ({ isOpen, onClose, data }: { isOpen: boolean, onClose: () => void
             <h4 className="font-bold text-slate-900 uppercase tracking-wider text-sm">Principais Vantagens:</h4>
             {data.benefits.map((benefit, i) => (
               <div key={i} className="flex items-start gap-3">
-                <div className="mt-1 bg-indigo-100 p-1 rounded-full text-indigo-600">
-                  <CheckCircle size={16} />
+                <div className="mt-1 bg-green-100 p-1 rounded-full text-green-600 shrink-0">
+                  <CheckCircle size={14} />
                 </div>
                 <span className="text-slate-700">{benefit}</span>
               </div>
             ))}
           </div>
-          <WhatsAppButton text={`Quero saber mais sobre ${data.title}`} className="w-full" />
+          <WhatsAppButton text={`Quero implementar ${data.title}`} className="w-full shadow-xl" />
         </div>
       </div>
     </div>
@@ -104,105 +110,148 @@ const App: React.FC = () => {
       icon: <Monitor />, 
       title: "Criação de Sites", 
       desc: "Profissionais e responsivos.",
-      fullDesc: "Desenvolvemos sites modernos que funcionam perfeitamente em celulares, tablets e computadores. Focamos em velocidade de carregamento e design que transmite autoridade.",
-      benefits: ["Design Exclusivo", "Otimizado para o Google (SEO)", "Fácil de atualizar", "Integração direta com WhatsApp"]
+      fullDesc: "Sites de alto impacto visual desenvolvidos com tecnologias de ponta. Focamos em experiência do usuário (UX) para garantir que seu cliente encontre o que precisa em poucos segundos.",
+      benefits: ["Carregamento ultra-rápido", "Adaptável para todos os celulares", "Painel de edição intuitivo", "Otimização para busca orgânica"]
     },
     { 
       icon: <TrendingUp />, 
       title: "Tráfego Pago", 
-      desc: "Publicidade que converte.",
-      fullDesc: "Colocamos sua empresa na frente de quem já quer comprar. Gerenciamos campanhas no Google Ads, Facebook e Instagram para trazer resultados imediatos.",
-      benefits: ["Apareça no topo do Google", "Anúncios para o público certo", "Acompanhamento diário de resultados", "Máximo retorno sobre investimento"]
+      desc: "Anúncios que vendem.",
+      fullDesc: "Gestão estratégica de anúncios no Google Ads, Facebook e Instagram. Transformamos investimento em marketing em faturamento real através de segmentação precisa.",
+      benefits: ["Configuração de Pixel/Tag", "Testes A/B de criativos", "Escala de faturamento", "Dashboard de métricas"]
     },
     { 
       icon: <Bot />, 
       title: "Automação", 
-      desc: "Vendas automáticas 24/7.",
-      fullDesc: "Crie robôs inteligentes que atendem seus clientes, tiram dúvidas e até fecham vendas enquanto você dorme ou foca na operação do seu negócio.",
-      benefits: ["Atendimento imediato 24h", "Redução de erros humanos", "Triagem automática de leads", "Economia de tempo da equipe"]
+      desc: "IA e Atendimento 24/7.",
+      fullDesc: "Sistemas inteligentes que automatizam tarefas repetitivas. Desde chatbots no WhatsApp que qualificam leads até fluxos de e-mail marketing personalizados.",
+      benefits: ["Atendimento imediato", "Redução de custo com suporte", "Funis de vendas automáticos", "IA treinada com seus dados"]
     },
     { 
       icon: <Calendar />, 
       title: "Agendamento", 
       desc: "Sistemas inteligentes.",
-      fullDesc: "Ideal para clínicas, barbearias, consultórios e prestadores de serviço. Um sistema onde o cliente escolhe o horário e você apenas recebe a confirmação.",
-      benefits: ["Link de agendamento próprio", "Lembretes automáticos por WhatsApp", "Controle total da sua agenda", "Pagamento integrado opcional"]
+      fullDesc: "Ferramenta essencial para prestadores de serviço. Permita que seus clientes agendem horários online, paguem antecipado e recebam lembretes de forma automática.",
+      benefits: ["Redução de faltas (No-show)", "Pagamento de reserva via PIX", "Agenda multi-profissional", "Envio de lembretes automáticos"]
     },
     { 
       icon: <ShoppingBag />, 
       title: "Produtos Físicos", 
-      desc: "E-commerce e catálogos.",
-      fullDesc: "Plataformas robustas para venda de produtos com gestão de estoque, cálculo de frete e diversas formas de pagamento integradas de forma simples.",
-      benefits: ["Catálogo profissional", "Gestão de estoque inteligente", "Fácil cadastro de produtos", "Pagamento seguro (Cartão/Pix)"]
+      desc: "E-commerce completo.",
+      fullDesc: "Estrutura completa para venda de itens físicos. Inclui vitrines dinâmicas, cálculo de frete inteligente, cupons de desconto e checkout de alta conversão.",
+      benefits: ["Catálogo de fácil gestão", "Integração com Correios/Loggi", " Checkout em uma página", "Gestão de promoções"]
     },
     { 
       icon: <Lock />, 
       title: "Painel Adm", 
-      desc: "Controle total do negócio.",
-      fullDesc: "Tenha um cockpit completo para ver quem são seus clientes, quanto você vendeu e quais são suas metas. Dados organizados para decisões inteligentes.",
-      benefits: ["Relatórios financeiros claros", "Gestão de base de dados", "Acesso restrito e seguro", "Exportação de dados para Excel"]
+      desc: "Gestão e Controle.",
+      fullDesc: "Tenha visão clara de todos os números do seu negócio. Um sistema administrativo seguro e completo para gerenciar pedidos, clientes e financeiros.",
+      benefits: ["Gráficos financeiros", "Controle de estoque centralizado", "Níveis de acesso para equipe", "Relatórios para exportação"]
+    },
+  ];
+
+  const demos = [
+    { 
+      title: "Painel Administrativo", 
+      img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", 
+      icon: <Layout />,
+      desc: "Visualize o crescimento da sua empresa através de dados. Nosso painel centraliza todas as informações vitais para a sua tomada de decisão estratégica.",
+      benefits: ["Gestão de leads em tempo real", "Monitoramento de conversão", "Histórico completo de transações", "Design limpo e focado em produtividade"]
+    },
+    { 
+      title: "Agenda de Clientes", 
+      img: "https://images.unsplash.com/photo-1506784365847-bbad939e9335?auto=format&fit=crop&q=80&w=800", 
+      icon: <Calendar />,
+      desc: "Um sistema de agendamento que trabalha por você. Organize seu fluxo de trabalho e deixe a tecnologia cuidar das reservas e confirmações.",
+      benefits: ["Interface intuitiva para o cliente", "Bloqueio de horários automático", "Relatório de horários mais produtivos", "Fácil integração com seu site atual"]
+    },
+    { 
+      title: "Relatórios de Leads", 
+      img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800", 
+      icon: <BarChart3 />,
+      desc: "Não perca nenhum cliente. Nosso sistema de rastreamento de leads informa exatamente quem entrou em contato e por qual canal de marketing veio.",
+      benefits: ["Distribuição de leads para equipe", "Status de negociação visível", "Anotações internas por cliente", "Notificação imediata no celular"]
+    },
+    { 
+      title: "Gestão de Produtos", 
+      img: "https://images.unsplash.com/photo-1586769852044-692d6e3703f0?auto=format&fit=crop&q=80&w=800", 
+      icon: <Package />,
+      desc: "A maneira mais fácil de manter sua loja online atualizada. Altere preços, fotos e descrições em segundos, garantindo agilidade no seu dia a dia.",
+      benefits: ["Editor em massa de preços", "Gestão de fotos de alta qualidade", "Atributos técnicos personalizados", "Integração direta com marketplaces"]
     },
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-slate-50">
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} data={modalData} />
 
-      {/* 1. TOPO (IMPACTO IMEDIATO) */}
-      <nav className={`fixed top-0 w-full z-50 transition-all ${scrolled ? "bg-white/80 backdrop-blur-md shadow-md py-3" : "bg-transparent py-5"}`}>
+      {/* 1. NAVBAR */}
+      <nav className={`fixed top-0 w-full z-[100] transition-all duration-300 ${scrolled ? "bg-white/90 backdrop-blur-lg shadow-lg py-3" : "bg-transparent py-6"}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <img 
               src={LOGO_URL} 
               alt="Nexa Digital Logo" 
-              className="h-10 w-auto object-contain"
+              className="h-9 w-auto object-contain"
             />
-            <span className={`text-xl font-bold tracking-tight ${scrolled ? "text-slate-900" : "text-white"}`}>Nexa Digital</span>
+            <span className={`text-xl font-black tracking-tighter ${scrolled ? "text-slate-900" : "text-white"}`}>NEXA DIGITAL</span>
           </div>
-          <WhatsAppButton text="WhatsApp" className="hidden md:flex !py-2 !px-5 text-sm" />
+          <div className="flex items-center gap-6">
+            <WhatsAppButton text="Orçamento" className="!py-2.5 !px-6 text-sm" />
+          </div>
         </div>
       </nav>
 
-      <header className="hero-gradient pt-32 pb-20 md:pt-48 md:pb-32 text-white relative overflow-hidden text-center">
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+      {/* HERO SECTION */}
+      <header className="hero-gradient pt-40 pb-24 md:pt-60 md:pb-40 text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-indigo-500/20 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-blue-500/10 rounded-full blur-[120px]"></div>
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-6 relative z-10 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight">
-              Marketing Digital que <br/><span className="text-indigo-400">Gera Vendas</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-indigo-300 text-sm font-bold mb-8 backdrop-blur-sm border border-white/5">
+              <Smartphone size={16} /> Presença Digital Completa
+            </div>
+            <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter leading-[0.9]">
+              MARKETING QUE <br/><span className="text-indigo-400">GERA VENDAS</span>
             </h1>
-            <p className="text-xl md:text-2xl text-slate-300 mb-10 font-light max-w-2xl mx-auto">
-              Criamos sites, sistemas e automações para atrair clientes todos os dias.
+            <p className="text-xl md:text-2xl text-slate-300 mb-12 font-medium max-w-2xl mx-auto leading-relaxed">
+              Desenvolvemos a tecnologia e a estratégia necessárias para sua empresa faturar mais no digital todos os dias.
             </p>
-            <div className="flex flex-col md:flex-row gap-4 justify-center">
-              <WhatsAppButton text="Falar no WhatsApp" className="text-lg px-10" />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <WhatsAppButton text="Quero Vender Mais" className="text-lg px-12 py-5 shadow-2xl" />
+              <button onClick={() => {
+                const el = document.getElementById('demo');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }} className="px-10 py-5 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full font-bold transition-all border border-white/10">
+                Ver Demonstração
+              </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* 2. O QUE FAZEMOS */}
-      <section className="py-20 bg-white">
+      {/* SERVICES SECTION */}
+      <section className="py-32 bg-white">
         <div className="container mx-auto px-6">
           <SectionTitle 
-            title="Soluções completas para vender mais" 
-            subtitle="Tudo o que o seu negócio precisa para dominar o digital e converter leads em clientes reais. Clique em uma opção para ver detalhes."
+            title="Soluções completas para seu lucro" 
+            subtitle="Clique nos cartões abaixo para entender como cada serviço vai acelerar o crescimento da sua empresa."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {services.map((item, idx) => (
               <button 
                 key={idx} 
                 onClick={() => openDetails(item.title, item.fullDesc, item.benefits)}
-                className="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover-lift text-center group w-full outline-none focus:ring-2 focus:ring-indigo-500"
+                className="p-10 rounded-3xl bg-slate-50 border border-slate-100 hover-lift text-center group w-full flex flex-col items-center outline-none focus:ring-4 focus:ring-indigo-200 transition-all"
               >
-                <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 text-indigo-600 shadow-sm group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 text-indigo-600 shadow-xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
                   {item.icon}
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2">{item.title}</h3>
-                <p className="text-slate-500 text-sm leading-tight">{item.desc}</p>
-                <div className="mt-4 text-xs font-bold text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                  VER EXPLICAÇÃO
+                <h3 className="font-black text-slate-900 mb-3 text-lg">{item.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed mb-4">{item.desc}</p>
+                <div className="mt-auto flex items-center gap-1 text-xs font-black text-indigo-600 opacity-40 group-hover:opacity-100 transition-all">
+                  CLIQUE PARA VER <MousePointer2 size={12} />
                 </div>
               </button>
             ))}
@@ -210,195 +259,101 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. DEMONSTRAÇÃO DO SERVIÇO */}
-      <section id="demo" className="py-20 bg-slate-50">
+      {/* DEMO SECTION */}
+      <section id="demo" className="py-32 bg-slate-100">
         <div className="container mx-auto px-6">
-          <SectionTitle title="Veja como funciona na prática" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            {[
-              { 
-                title: "Painel Administrativo", 
-                img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800", 
-                icon: <Layout />,
-                desc: "Um painel completo para gerenciar toda a sua operação digital em um só lugar.",
-                benefits: ["Dashboard de vendas", "Controle de usuários", "Acesso via mobile", "Segurança de dados"]
-              },
-              { 
-                title: "Agenda de Clientes", 
-                img: "https://images.unsplash.com/photo-1506784365847-bbad939e9335?auto=format&fit=crop&q=80&w=800", 
-                icon: <Calendar />,
-                desc: "Sua agenda funcionando sozinha. Menos tempo no telefone, mais tempo atendendo.",
-                benefits: ["Sincronização com Google", "Lista de espera automática", "Histórico de clientes", "Confirmação por WhatsApp"]
-              },
-              { 
-                title: "Relatórios de Leads", 
-                img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", 
-                icon: <BarChart3 />,
-                desc: "Saiba exatamente de onde vêm seus clientes e qual o custo por cada lead.",
-                benefits: ["Gráficos intuitivos", "Exportação em PDF/Excel", "Taxa de conversão real", "Origem por campanha"]
-              },
-              { 
-                title: "Gestão de Produtos", 
-                img: "https://images.unsplash.com/photo-1586769852044-692d6e3703f0?auto=format&fit=crop&q=80&w=800", 
-                icon: <Package />,
-                desc: "Organize seu estoque, preços e variações de forma rápida e profissional.",
-                benefits: ["Controle de variantes (cor/tamanho)", "Alerta de estoque baixo", "Fotos ilimitadas", "SEO por produto"]
-              },
-            ].map((demo, idx) => (
-              <div key={idx} className="bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-200 group">
-                <div className="p-4 flex items-center gap-3 border-b border-slate-100">
-                  <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-indigo-600">
-                    {demo.icon}
+          <SectionTitle 
+            title="Tecnologia a serviço do seu negócio" 
+            subtitle="Interfaces pensadas para facilitar sua gestão e maximizar sua conversão de leads." 
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
+            {demos.map((demo, idx) => (
+              <div key={idx} className="bg-white rounded-[40px] overflow-hidden shadow-2xl border border-slate-200 group flex flex-col">
+                <div className="p-6 flex items-center justify-between border-b border-slate-100 bg-white">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+                      {demo.icon}
+                    </div>
+                    <span className="font-black text-slate-900 tracking-tight">{demo.title}</span>
                   </div>
-                  <span className="font-bold text-slate-800">{demo.title}</span>
+                  <div className="flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-slate-200"></div>
+                    <div className="w-3 h-3 rounded-full bg-slate-200"></div>
+                  </div>
                 </div>
-                <div className="relative overflow-hidden aspect-video">
-                  <img src={demo.img} alt={demo.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-indigo-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <button 
-                      onClick={() => openDetails(demo.title, demo.desc, demo.benefits)}
-                      className="bg-white text-indigo-900 px-6 py-2 rounded-full font-bold"
-                    >
-                      Ver Explicação
-                    </button>
+                <div className="relative overflow-hidden aspect-[16/10]">
+                  <img src={demo.img} alt={demo.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-indigo-900/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center p-8">
+                    <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                      <p className="text-white font-medium mb-6 text-lg max-w-sm">{demo.desc}</p>
+                      <button 
+                        onClick={() => openDetails(demo.title, demo.desc, demo.benefits)}
+                        className="bg-white text-indigo-900 px-10 py-4 rounded-full font-black shadow-2xl hover:bg-indigo-50 transition-all scale-100 hover:scale-105 active:scale-95"
+                      >
+                        Explorar Funcionalidade
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
           <div className="text-center">
-            <p className="text-slate-600 mb-8 max-w-lg mx-auto">
-              Entregamos sistemas simples, profissionais e fáceis de usar para você focar no que importa: seu lucro.
-            </p>
-            <WhatsAppButton text="Quero Ver no WhatsApp" className="mx-auto inline-flex" />
+            <WhatsAppButton text="Ver Demonstração ao Vivo" className="mx-auto inline-flex px-16 shadow-2xl shadow-green-500/20" />
           </div>
         </div>
       </section>
 
-      {/* 4. COMO FUNCIONA */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <SectionTitle title="Simples, rápido e sem enrolação" />
-          <div className="flex flex-col md:flex-row gap-8 justify-between relative">
-            <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-slate-100 z-0"></div>
-            {[
-              { step: "1", title: "Você chama no WhatsApp", desc: "O primeiro passo para transformar seu negócio é uma conversa rápida." },
-              { step: "2", title: "Entendemos sua necessidade", desc: "Analisamos seu mercado e criamos a melhor estratégia personalizada." },
-              { step: "3", title: "Criamos seu site e sistema", desc: "Tudo pronto em tempo recorde para você começar a faturar." },
-            ].map((step, idx) => (
-              <div key={idx} className="relative z-10 flex-1 text-center group">
-                <div className="w-24 h-24 bg-indigo-50 border-4 border-white rounded-full flex items-center justify-center text-3xl font-black text-indigo-600 mx-auto mb-6 shadow-md group-hover:bg-indigo-600 group-hover:text-white transition-all">
-                  {step.step}
-                </div>
-                <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-                <p className="text-slate-500 leading-relaxed">{step.desc}</p>
-              </div>
-            ))}
-          </div>
+      {/* CALL TO ACTION */}
+      <section className="py-32 bg-indigo-600 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+            <div className="absolute top-[-50%] left-[-20%] w-[100%] h-[200%] rotate-45 border-[100px] border-white rounded-[100px]"></div>
         </div>
-      </section>
-
-      {/* 5. SERVIÇOS DETALHADOS */}
-      <section className="py-20 bg-slate-900 text-white">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center gap-12">
-            <div className="flex-1">
-              <h2 className="text-3xl md:text-5xl font-extrabold mb-6">🚀 Pacotes que Trabalhamos</h2>
-              <div className="space-y-4">
-                {[
-                  "Site Institucional + WhatsApp Integrado",
-                  "Landing Pages de Alta Conversão",
-                  "Vendas de produtos físicos (Pagamento após entrega)",
-                  "Sistemas de Agendamento Online",
-                  "Bots de Atendimento (IA)",
-                  "Gestão de Tráfego Pago (Ads)"
-                ].map((service, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors cursor-pointer group" onClick={() => {
-                    const found = services.find(s => s.title.includes(service.split(' ')[0]));
-                    if (found) openDetails(found.title, found.fullDesc, found.benefits);
-                  }}>
-                    <CheckCircle className="text-green-400 shrink-0" size={24} />
-                    <span className="text-lg font-medium group-hover:text-indigo-300 transition-colors">{service}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-8 text-slate-400 italic">📌 Tudo personalizado para o seu negócio.</p>
-            </div>
-            <div className="flex-1 w-full">
-              <div className="bg-indigo-600 rounded-3xl p-8 md:p-12 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
-                <h3 className="text-3xl font-bold mb-6">Pronto para o próximo nível?</h3>
-                <p className="text-indigo-100 text-lg mb-8 leading-relaxed">
-                  Não perca mais clientes para a concorrência. Tenha uma presença digital que realmente trabalha para você.
-                </p>
-                <WhatsAppButton text="Pedir Orçamento Agora" className="!bg-white !text-indigo-600 !shadow-none hover:!bg-indigo-50" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. PROVA VISUAL (DEMO) */}
-      <section className="py-12 bg-slate-50 border-t border-slate-200">
-        <div className="container mx-auto px-6 text-center">
-          <p className="text-slate-400 text-sm font-medium uppercase tracking-widest mb-4">Aviso Legal</p>
-          <p className="text-slate-500 max-w-2xl mx-auto italic">
-            Demonstrações visuais de projetos e sistemas desenvolvidos para apresentação comercial. 
-            Todos os layouts mostrados são exemplos reais do nosso padrão de entrega.
+        <div className="container mx-auto px-6 relative z-10 text-center">
+          <h2 className="text-4xl md:text-7xl font-black text-white mb-10 tracking-tighter">
+            SUA EMPRESA ESTÁ <br/><span className="text-indigo-200 underline">PRONTA PARA CRESCER?</span>
+          </h2>
+          <p className="text-xl md:text-2xl text-indigo-100 mb-14 max-w-3xl mx-auto font-medium">
+            Não perca tempo com estratégias que não funcionam. Tenha uma estrutura digital profissional feita por especialistas.
           </p>
+          <WhatsAppButton text="Agendar Consultoria Grátis" className="!bg-white !text-indigo-600 !px-20 !py-6 !text-2xl shadow-none hover:!bg-indigo-50" />
         </div>
       </section>
 
-      {/* 7. CHAMADA FINAL */}
-      <section className="py-24 bg-white">
+      {/* FOOTER */}
+      <footer className="py-20 bg-white border-t border-slate-100">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-8 leading-tight">
-              Quer um sistema <span className="text-indigo-600 underline">igual a este</span> para o seu negócio?
-            </h2>
-            <p className="text-xl text-slate-600 mb-12">
-              Não deixe para depois o que pode alavancar suas vendas hoje. Nosso team está online para te atender.
-            </p>
-            <WhatsAppButton text="Chamar no WhatsApp Agora" className="text-xl md:px-16" />
-          </div>
-        </div>
-      </section>
-
-      {/* 8. FOOTER SIMPLES */}
-      <footer className="py-12 bg-slate-50 border-t border-slate-200">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-12">
             <div className="flex flex-col items-center md:items-start">
-               <div className="flex items-center gap-3 mb-2">
-                <img 
-                  src={LOGO_URL} 
-                  alt="Nexa Digital Logo" 
-                  className="h-8 w-auto object-contain"
-                />
-                <span className="text-lg font-bold text-slate-900">Nexa Digital Marketing</span>
+              <div className="flex items-center gap-4 mb-4">
+                <img src={LOGO_URL} alt="Nexa Digital" className="h-10 w-auto object-contain" />
+                <span className="text-2xl font-black tracking-tighter">NEXA DIGITAL</span>
               </div>
-              <p className="text-slate-500 text-sm text-center md:text-left">
-                © {new Date().getFullYear()} Nexa Digital. Todos os direitos reservados.
+              <p className="text-slate-500 max-w-sm text-center md:text-left leading-relaxed">
+                Transformando negócios comuns em referências digitais através de marketing de alta performance e tecnologia.
               </p>
             </div>
-            <div className="flex gap-6">
-              <a href="https://wa.me/556798348381" className="text-slate-500 hover:text-indigo-600 transition-colors font-medium">WhatsApp</a>
-              <a href="#" className="text-slate-500 hover:text-indigo-600 transition-colors font-medium">Instagram</a>
-              <a href="#" className="text-slate-500 hover:text-indigo-600 transition-colors font-medium">LinkedIn</a>
+            <div className="flex flex-col items-center md:items-end gap-6">
+                <div className="flex gap-10">
+                    <a href="https://wa.me/556798348381" className="font-bold hover:text-indigo-600 transition-colors">WhatsApp</a>
+                    <a href="#" className="font-bold hover:text-indigo-600 transition-colors">Instagram</a>
+                    <a href="#" className="font-bold hover:text-indigo-600 transition-colors">LinkedIn</a>
+                </div>
+                <p className="text-slate-400 text-sm">© {new Date().getFullYear()} Nexa Digital Marketing. Todos os direitos reservados.</p>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* FIXED WhatsApp CTA */}
-      <div className="fixed bottom-6 right-6 z-[999]">
+      {/* FLOATING CTA */}
+      <div className="fixed bottom-8 right-8 z-[999]">
         <a 
           href="https://wa.me/556798348381" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-full shadow-2xl animate-bounce hover:bg-green-600 transition-colors"
+          className="flex items-center justify-center w-20 h-20 bg-green-500 text-white rounded-full shadow-2xl animate-bounce hover:bg-green-600 transition-all transform hover:scale-110 active:scale-95 border-4 border-white"
         >
-          <MessageCircle size={32} />
+          <MessageCircle size={40} />
         </a>
       </div>
     </div>
